@@ -1,23 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+//components
+import Home from "./pages/Home";
+import GlobalStyles from "./components/GlobalStyles";
+import { Routes, Route } from "react-router-dom";
+import Nav from "./components/Nav";
+import background from "./img/bg_tunnel.jpg";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <GlobalStyles />
+      <div
+        className="background-image"
+        style={{ backgroundImage: `url(${background})` }}
+      ></div>
+      <Nav />
+      <Routes>
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/game/:id" element={<Home />}></Route>
+      </Routes>
     </div>
   );
 }
