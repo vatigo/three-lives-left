@@ -21,12 +21,12 @@ lastMonth.setMonth(lastMonth.getMonth() - 1);
 //Popular games
 export const popularGamesURL = `${base_url}games?key=${key}&dates=${getDate(
   lastMonth
-)},${getDate(today)}&ordering=-rating&page_size=9`;
+)},${getDate(today)}&ordering=-rating&page_size=10`;
 
 //Upcoming games
 export const upcomingGamesURL = `${base_url}games?key=${key}&dates=${getDate(
   today
-)},${getDate(nextYear)}&ordering=released&page_size=9`;
+)},${getDate(nextYear)}&ordering=released&exclude_stores=9&page_size=10`;
 
 //New games
 export const newGamesURL = `${base_url}games?key=${key}&dates=${getDate(
