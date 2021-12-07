@@ -31,13 +31,23 @@ const Home = () => {
     if (pathId) document.body.style.overflow = "hidden";
   }, [pathId, dispatch, game.id]);
 
-  const { popular, searched, upcoming } = useSelector((state) => state.games);
+  const { popular, searched, upcoming, error } = useSelector(
+    (state) => state.games
+  );
 
   return (
     <GameList variants={fadeIn} initial="hidden" animate="show">
       <AnimateSharedLayout type="crossfade">
         <AnimatePresence>
-          {searched.length && (
+          {error && (
+            <Error>
+              <p>
+                Error: The videogame database is currently unresponsive. Please
+                check back at a later time.
+              </p>
+            </Error>
+          )}
+          {!error && searched.length && (
             <div className="searched">
               <h2>Search Results</h2>
               <Games>
@@ -53,34 +63,38 @@ const Home = () => {
               </Games>
             </div>
           )}
-          {pathId && parseInt(pathId) === game.id && (
+          {!error && pathId && parseInt(pathId) === game.id && (
             <GameDetail pathId={pathId} />
           )}
         </AnimatePresence>
-        <h2>Games releasing soon!</h2>
-        <Games>
-          {upcoming.map((game) => (
-            <Game
-              name={game.name}
-              release={game.released}
-              id={game.id}
-              image={game.background_image}
-              key={game.id}
-            />
-          ))}
-        </Games>
-        <h2>Popular Games</h2>
-        <Games>
-          {popular.map((game) => (
-            <Game
-              name={game.name}
-              release={game.released}
-              id={game.id}
-              image={game.background_image}
-              key={game.id}
-            />
-          ))}
-        </Games>
+        {!error && (
+          <div>
+            <h2>Games releasing soon!</h2>
+            <Games>
+              {upcoming.map((game) => (
+                <Game
+                  name={game.name}
+                  release={game.released}
+                  id={game.id}
+                  image={game.background_image}
+                  key={game.id}
+                />
+              ))}
+            </Games>
+            <h2>Popular Games</h2>
+            <Games>
+              {popular.map((game) => (
+                <Game
+                  name={game.name}
+                  release={game.released}
+                  id={game.id}
+                  image={game.background_image}
+                  key={game.id}
+                />
+              ))}
+            </Games>
+          </div>
+        )}
       </AnimateSharedLayout>
     </GameList>
   );
@@ -106,6 +120,13 @@ const Games = styled(motion.div)`
   @media (max-width: 1010px) {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   }
+`;
+
+const Error = styled(motion.div)`
+  background: rgb(161, 59, 59);
+  padding: 1rem;
+  border-radius: 1rem;
+  text-align: center;
 `;
 
 export default Home;

@@ -1,32 +1,31 @@
 import axios from "axios";
-import {
-  popularGamesURL,
-  upcomingGamesURL,
-  newGamesURL,
-  searchGameURL,
-} from "../api";
+import { popularGamesURL, upcomingGamesURL, searchGameURL } from "../api";
 
 export const loadGames = () => async (dispatch) => {
-  try {
-    const promise1 = axios.get(popularGamesURL);
-    const promise2 = axios.get(upcomingGamesURL);
-    const promise3 = axios.get(newGamesURL);
+  const promise1 = axios.get(popularGamesURL);
+  const promise2 = axios.get(upcomingGamesURL);
 
-    axios.all([promise1, promise2, promise3]).then(
-      axios.spread((response1, response2, response3) => {
+  axios
+    .all([promise1, promise2])
+    .then(
+      axios.spread((response1, response2) => {
         dispatch({
           type: "FETCH_GAMES",
           payload: {
             popular: response1.data.results,
             upcoming: response2.data.results,
-            newgames: response3.data.results,
           },
         });
       })
-    );
-  } catch (error) {
-    console.log(error);
-  }
+    )
+    .catch((err) => {
+      dispatch({
+        type: "ERROR",
+        payload: {
+          error: err,
+        },
+      });
+    });
 };
 
 export const fetchSearch = (game_name) => async (dispatch) => {

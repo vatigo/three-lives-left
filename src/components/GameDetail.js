@@ -6,13 +6,6 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { smallImage } from "../util";
 
-import playstation from "../img/playstation.svg";
-import steam from "../img/steam.svg";
-import xbox from "../img/xbox.svg";
-import nintendo from "../img/nintendo.svg";
-import apple from "../img/apple.svg";
-import gamepad from "../img/gamepad.svg";
-
 import StarsRating from "stars-rating";
 import { fadeIn } from "../animations";
 import { useState } from "react";
@@ -36,30 +29,6 @@ function GameDetail({ pathId }) {
   const { screenshots, game, isLoading } = useSelector((state) => state.detail);
 
   const [isOpen, setIsOpen] = useState(true);
-
-  //platform images
-  const getPlatform = (platform) => {
-    switch (platform) {
-      case "PlayStation 4":
-        return playstation;
-      case "PlayStation 5":
-        return playstation;
-      case "Xbox Series S/X":
-        return xbox;
-      case "Xbox S":
-        return xbox;
-      case "Xbox One":
-        return xbox;
-      case "PC":
-        return steam;
-      case "Nintendo Switch":
-        return nintendo;
-      case "iOS":
-        return apple;
-      default:
-        return gamepad;
-    }
-  };
 
   return (
     <>

@@ -28,11 +28,6 @@ export const upcomingGamesURL = `${base_url}games?key=${key}&dates=${getDate(
   today
 )},${getDate(nextYear)}&ordering=released&exclude_stores=9&page_size=10`;
 
-//New games
-export const newGamesURL = `${base_url}games?key=${key}&dates=${getDate(
-  lastYear
-)},${getDate(today)}&ordering=-released&page_size=9`;
-
 //Game details
 export const gameDetailsURL = (game_id) =>
   `${base_url}games/${game_id}?key=${key}`;
